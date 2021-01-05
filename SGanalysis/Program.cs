@@ -12,6 +12,9 @@ namespace SGanalysis
         static void Main(string[] args)
         {
             string[] filePath = Environment.GetCommandLineArgs();
+            string dnaFilePath = filePath[1];
+
+            MyBytes dnaBytes = new MyBytes(dnaFilePath);
         }
     }
 
