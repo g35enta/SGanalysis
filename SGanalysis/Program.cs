@@ -82,6 +82,12 @@ namespace SGanalysis
             return output;
         }
 
+        /// <summary>
+        /// SnapGeneファイルを作成します
+        /// </summary>
+        /// <param name="SGsegs">SnapGeneセグメントを格納したリスト</param>
+        /// <param name="FileName">保存先のファイルパス</param>
+        /// <returns>ファイルが作成されたらtrueを返します</returns>
         public static bool SaveSGFiles(List<SGSegment> SGsegs, string FileName)
         {
             if (SGsegs == null || FileName == "") return false;
@@ -212,14 +218,22 @@ namespace SGanalysis
                 }
             }
 
-            /*
-             * 処理部
-             */
+            // セグメント#2を削除
+            int num = 0;
+            foreach (SGSegment seg in SGsegs)
+            {
+                if (seg.SGIdentifier == 2) break;
+                num++;
+            }
+            SGsegs.Remove(SGsegs[num]);
 
-            string newFileName = "D:\\Codes\\SGanalysis\\hRab10Ex1L_as2_new.dna";
+            string dnaFileDirectory = Path.GetDirectoryName(dnaFilePath);
+            string dnaFileName = Path.GetFileNameWithoutExtension(dnaFilePath);
+            string newFileName = dnaFileDirectory + "\\" + dnaFileName + "_" + ".dna";
             SaveSGFiles(SGsegs, newFileName);
 
             Console.WriteLine("   Saved {0}", newFileName);
+            Console.WriteLine("   Hit any keys to quit...");
             Console.ReadKey();
         }
     }
